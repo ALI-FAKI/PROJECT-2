@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Coral Health in Tanzania</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <p>CORAL HEALTH IN TANZANIA</p>
+        <nav>
+            <ul>
+                <li><button id="HOME-BTN">HOME</button></li>
+                <li class="dropdown">
+                    <button id="ABOUT-US-BTN">ABOUT US</button>
+                    <div class="dropdown-content">
+                        <button class="tab-btn" data-target="OUR-ETHOS">OUR ETHOS</button>
+                        <button class="tab-btn" data-target="OUR-TEAM">OUR TEAM</button>
+                    </div>
+                </li>
+                <LI class="dropdown">
+                    <button id="OUR-ACTIVITIES">OUR ACTIVITIES</button>
+                    <div class="dropdown-content">
+                        <button class="tab-btn" data-target="WHAT-WE-DO">WHAT WE DO</button>
+                        <button class="tab-btn" data-target="WHERE-WE-WORK">WHERE WE WORK</button>
+                    </div>
+                </LI>
+                <LI class="dropdown">
+                    <button id="GET-INVOLVED-BTN">GET INVOLVED</button>
+                    <div class="dropdown-content">
+                        <button class="tab-btn" data-target="BECOME-MEMBER">BECOME MEMBER</button>
+                        <button class="tab-btn" data-target="DONATE">DONATE</button>
+                    </div>
+                </LI>
+            </ul>
+        </nav>
+
+    </header>
+    <main>
+         <!-- HOME SECTION -->
+          <section id="HOME-SECTION" class="tab-content">
+            <h2>Welcome to Our Coral Reef Conservation Organization</h2>
+            <p>We are committed to protecting the marine ecosystem and promoting sustainable practices in Tanzania. Our mission is to preserve coral reefs for future generations through community engagement, education, and hands-on conservation efforts.</p>
+          </section>
+          <!-- ABOUT US SECTION-->
+            <section id="ABOUT-US-SECTION">
+                <div id="OUR-ETHOS" class="tab-content hidden">
+                    <h2>OUR ETHOS</h2>
+                    <p>We believe in the power of community and education to preserve coral reefs for future generations. Our ethos is centered around sustainability, collaboration, and respect for nature.</p>
+                </div>
+                <div id="OUR-TEAM" class="tab-content hidden">
+                    <h2>OUR TEAM</h2>
+                    <p>Our team consists of passionate marine biologists, environmentalists, and local community leaders who work together to achieve our conservation goals.</p>
+
+    <div class="project-grid">
+        <div class="project-image-wrapper">
+            <h3>ALI FAKI ALI</h3>
+            <img src="image/photo 1.png" alt="ALI FAKI ALI" class="project-image">
+            <p class="description">dhjhvjhrtyghskcvjhdhsjhbkjbkbkjbsgrzexrctvbv</p>
+        </div>
+        <div class="project-image-wrapper">
+            <h3>INOS PAULIN MAHUSHI</h3>
+            <img src="image/profile picture.jpg" alt="INOS PAULIN MAHUSHI" class="project-image">
+            <p class="description">DYTFGDJSVFSC45dftgyu43s5ftgyuityuieertyuio5d6tuC</p>
+        </div>
+        <div class="project-image-wrapper">
+            <h3>MASALI GODFREY</h3>
+            <img src="image/project 1.jpg" alt="MASALI GODFREY" class="project-image">
+            <p class="description">vvjscgduhckdvcdhcgdvcvggssrdtfgzxtcfyvgetryuissdrtyubextcyvubtcygvhj</p>
+        </div>
+        <div class="project-image-wrapper">
+            <h3>PASCAL JOSEF</h3>
+            <img src="image/project 2.jpg" alt="PASCAL JOSEF" class="project-image">
+            <p class="description">sgcjgsdjhcjyscdsdfty33dftgy4drftgyuhiftgyiuxcvybunzxcvbntyugc</p>
+        </div>
+    </div>
+                </div>
+           </section>
+           <!-- OUR ACTIVITIES SECTION-->
+            <section id="OUR-ACTIVITIES-SECTION">
+                <div id="WHAT-WE-DO" class="tab-content hidden">
+                <h2>WHAT WE DO</h2>
+                <p>We conduct coral reef monitoring, restoration projects, and community education programs. Our activities are aimed at restoring damaged reefs and ensuring their long-term survival.</p>
+                </div>
+                <div id="WHERE-WE-WORK" class="tab-content hidden">
+                    <h2>WHERE WE WORK</h2>
+                    <p>Our work is primarily focused on the coral reefs along the coast of Tanzania. We partner with local communities to implement our conservation strategies.</p>
+                </div>
+            </section>
+            <!-- GET INVOLVED SECTION-->
+             <section id="GET-INVOLVED-SECTION">
+                <div id="BECOME-MEMBER" class="tab-content hidden">
+                    <h2>BECOME MEMBER</h2>
+                    <div class="membership-form">
+                        <form action="/register" method="POST">
+                            <label for="name">Full Name:</label><br>
+                            <input type="text" id="name" name="name" required><br><br>
+                            
+                            <label for="email">Email:</label><br>
+                            <input type="email" id="email" name="email" required><br><br>
+                            
+                            <label for="password">Password:</label><br>
+                            <input type="password" id="password" name="password" required><br><br>
+                            
+                            <input type="submit" value="Register">
+                        </form>    
+                    </div>
+                </div>
+                <div id="DONATE" class="tab-content hidden">
+                    <h2>DONATE</h2>
+                    <form id="donation-form">
+                        <input type="text" id="amount" placeholder="Enter Donation Amount" required>
+                        <button id="checkout-button">SUBMIT</button>
+                      </form>
+                </div>
+             </section>
+    </main>
+
+    <footer>
+        <p>&copy;CORAL HEALTH IN TANZANIA</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const targetId = e.target.getAttribute('data-target');
+                    tabContents.forEach(content => {
+                        if (content.id === targetId) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            // Default to showing the HOME section
+            document.getElementById('HOME-SECTION').classList.remove('hidden');
+        });
+    </script>
+    </body>
+</html>
