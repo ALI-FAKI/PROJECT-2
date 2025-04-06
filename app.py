@@ -1,39 +1,65 @@
-from flask import Flask, request, render_template
-from pymongo import MongoClient
+from flask import Flask, render_template, request
+import psycopg2
 
-# Initialize the Flask app
 app = Flask(__name__)
 
-# Connect to MongoDB (localhost:27017)
-client = MongoClient('localhost', 27017)
-db = client.membership_db  # Create/Connect to the database
-members_collection = db.members  # Create/Connect to the collection
+# PostgreSQL setup
+conn = psycopg2.connect(
+    dbname="mydatabase",
+    user="postgres",
+    password="1qaz1WSX@#",
+    host="localhost",
+    port="5432"
+)
+cursor = conn.cursor()
 
-# Route for rendering the membership form
-@app.route('/')
+# Ensure the tables existssss
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS submissions (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL
+    )
+''')
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS members (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL,
+        password VARCHAR(255) NOT NULL
+    )
+''')
+conn.commit()
+
+@app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template("index.html")
 
-# Route for handling form submissions
-@app.route('/register', methods=['POST'])
+@app.route("/submit", methods=["POST"])
+def submit():
+    name = request.form.get("name")
+    email = request.form.get("email")
+    
+    if name and email:
+        cursor.execute(
+            "INSERT INTO submissions (name, email) VALUES (%s, %s)",
+            (name, email)
+        )
+        conn.commit()
+        return "Form submitted successfully!"
+    return "Please fill out all fields."
+
+@app.route("/register", methods=["POST"])
 def register():
-    # Get form data
-    name = request.form['name']
-    email = request.form['email']
-    password = request.form['password']
+    name = request.form.get("name")
+    email = request.form.get("email")
+    password = request.form.get("password")
     
-    # Create a dictionary for the new member
-    new_member = {
-        'name': name,
-        'email': email,
-        'password': password
-    }
-    
-    # Insert the new member into the database
-    members_collection.insert_one(new_member)
-    
-    return f"Member {name} has been successfully registered!"
-
-# Start the Flask application
-if __name__ == '__main__':
-    app.run(debug=True)
+    if name and email and password:
+        cursor.execute(
+            "INSERT INTO members (name, email, password) VALUES (%s, %s, %s)",
+            (name, email, password)
+        )
+        conn.commit()
+        return "Registration successful!"
+    return "Please fill out all fields."
